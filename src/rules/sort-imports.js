@@ -25,19 +25,15 @@ const sortImportsRule = {
             node,
             messageId: "importsAreNotSorted",
             *fix(fixer) {
-              // NEW PLAN: Sort the array of imports. Then swap the corresponding elements.
+              // --------
+              // NEW PLAN
+              //
+              // Sort the array of imports. Then swap the corresponding elements.
+              // --------
 
-              console.log(
-                "aaa",
-                importNodes.map((node_) => node_.source.value)
-              )
               const badImportPos = importNodes.findIndex(
                 (importNode) => importNode.source.value > node.source.value
               )
-              // if (badImportPos === -1) {
-              //   break
-              // }
-
               const badImportNode = importNodes[badImportPos]
               const badImportSourceCode =
                 context.sourceCode.getText(badImportNode)
@@ -47,11 +43,6 @@ const sortImportsRule = {
               const tmp = importNodes[currentImportPos]
               importNodes[currentImportPos] = importNodes[badImportPos]
               importNodes[badImportPos] = tmp
-
-              console.log(
-                "bbb",
-                importNodes.map((node_) => node_.source.value)
-              )
 
               const currentImportSourceCode = context.sourceCode.getText(node)
 
