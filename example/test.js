@@ -2,11 +2,9 @@
 // import c from "a"
 // import b from "b"
 
-// console.log(a, b, c)
+import a from "c";import b from "b";import c from "a";
 
-import x from "z"; import y from "y"; import z from "a";
-
-console.log(x, y, z)
+console.log(a, b, c)
 
 // while (true) {
 //   console.log(1)
