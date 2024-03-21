@@ -1,5 +1,5 @@
 const { RuleTester } = require("eslint")
-const { avoidWhileLoopsRule } = require("../../src/rules/avoid-while-loops")
+const { noWhileLoopsRule } = require("../../src/rules/no-while-loops")
 
 const ruleTester = new RuleTester({
   parserOptions: {
@@ -7,12 +7,12 @@ const ruleTester = new RuleTester({
   },
 })
 
-ruleTester.run("avoid-while-loops", avoidWhileLoopsRule, {
+ruleTester.run("no-while-loops", noWhileLoopsRule, {
   valid: ["const foo = 1", "for(;;) {}", "do {} while(condition)"],
   invalid: [
     {
       code: "while(condition) {}",
-      errors: [{ messageId: "avoidWhileLoops" }],
+      errors: [{ messageId: "noWhileLoops" }],
     },
   ],
 })

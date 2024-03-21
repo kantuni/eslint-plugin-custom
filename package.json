@@ -1,11 +1,13 @@
 {
   "name": "eslint-plugin-custom",
   "version": "1.0.0",
+  "main": "src/eslint-plugin-custom.js",
   "scripts": {
     "test": "mocha tests/**/*.test.js"
   },
   "devDependencies": {
     "eslint": "^8.56.0",
+    "eslint-plugin-custom": "link:",
     "mocha": "^10.2.0"
   },
   "peerDependencies": {
