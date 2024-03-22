@@ -13,7 +13,6 @@ const sortImportsRule = {
     const importNodes = []
 
     return {
-      // NOTE: We should probably sort them after the whole program has been provided
       ImportDeclaration: (node) => {
         importNodes.push({ ...node })
 
@@ -36,37 +35,17 @@ const sortImportsRule = {
               })
 
               const fixes = []
-
-              for (let i = 0; i < importNodes.length; i++) {
-                if (
-                  sortedImportNodes[i].source.value !==
-                  importNodes[i].source.value
-                ) {
-                  console.log(
-                    "replace ",
-                    context.sourceCode.getText(importNodes[i]),
-                    " with ",
-                    context.sourceCode.getText(sortedImportNodes[i])
-                  )
-
+              importNodes.forEach((importNode, index) => {
+                const sortedImportNode = sortedImportNodes[index]
+                if (sortedImportNode.source.value !== importNode.source.value) {
                   fixes.push(
                     fixer.replaceText(
-                      importNodes[i],
-                      context.sourceCode.getText(sortedImportNodes[i])
+                      importNode,
+                      context.sourceCode.getText(sortedImportNode)
                     )
                   )
-
-                  // Properly sort the imports array
-                  // let tmpNode = sortedImportNodes[i]
-                  // sortedImportNodes[i] = importNodes[i]
-                  // importNodes[i] = tmpNode
                 }
-              }
-
-              console.log(
-                "possibly sorted",
-                importNodes.map((n) => n.source.value)
-              )
+              })
               return fixes
             },
           })
