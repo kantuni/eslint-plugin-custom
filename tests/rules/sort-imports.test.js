@@ -21,10 +21,7 @@ ruleTester.run("sort-imports", sortImportsRule, {
     },
     {
       code: 'import a from "c";import b from "b";import c from "a";',
-      errors: [
-        { messageId: "importsAreNotSorted" },
-        { messageId: "importsAreNotSorted" },
-      ],
+      errors: [{ messageId: "importsAreNotSorted" }],
       output: 'import c from "a";import b from "b";import a from "c";',
     },
   ],

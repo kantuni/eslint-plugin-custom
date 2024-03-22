@@ -15,14 +15,16 @@ const sortImportsRule = {
     return {
       ImportDeclaration: (node) => {
         importNodes.push({ ...node })
-
+      },
+      onCodePathEnd: () => {
+        const lastImportNode = importNodes.at(-1)
         const sorted = importNodes.every(
-          (importNode) => importNode.source.value <= node.source.value
+          (importNode) => importNode.source.value <= lastImportNode.source.value
         )
 
         if (!sorted) {
           context.report({
-            node,
+            node: lastImportNode,
             messageId: "importsAreNotSorted",
             fix(fixer) {
               const sortedImportNodes = importNodes.toSorted((a, b) => {
