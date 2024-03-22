@@ -14,7 +14,7 @@ const sortImportsRule = {
 
     return {
       ImportDeclaration: (node) => {
-        importNodes.push({ ...node })
+        importNodes.push(node)
       },
       onCodePathEnd: () => {
         const lastImportNode = importNodes.at(-1)
