@@ -14,10 +14,24 @@ module.exports = {
 
     return {
       ImportDeclaration: (node) => {
-        importNodes.push(node)
+        if (importNodes.length === 0) {
+          importNodes.push(node)
+          return
+        }
+
+        const lastImportNode = importNodes.at(-1)
+        const tokensBetween = context.sourceCode.getTokensBetween(
+          lastImportNode,
+          node
+        )
+        if (tokensBetween.length === 0) {
+          importNodes.push(node)
+        }
       },
       onCodePathEnd: () => {
         const lastImportNode = importNodes.at(-1)
+        // Next: https://stackoverflow.com/questions/31973278/iterate-an-array-as-a-pair-current-next-in-javascript
+        // Check if ALL pairs are sorted (use the idea from the callback function of the `importNodes.reduce` below).
         const sorted = importNodes.every(
           (importNode) => importNode.source.value <= lastImportNode.source.value
         )
