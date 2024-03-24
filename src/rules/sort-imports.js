@@ -1,4 +1,4 @@
-const sortImportsRule = {
+module.exports = {
   meta: {
     type: "problem",
     docs: {
@@ -48,6 +48,7 @@ const sortImportsRule = {
                   )
                 }
               })
+
               return fixes
             },
           })
@@ -55,8 +56,4 @@ const sortImportsRule = {
       },
     }
   },
-}
-
-module.exports = {
-  sortImportsRule,
 }
