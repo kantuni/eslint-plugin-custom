@@ -1,5 +1,5 @@
 const { RuleTester } = require("eslint")
-const { sortImportsRule } = require("../../src/rules/sort-imports")
+const sortImportsRule = require("../../src/rules/sort-imports")
 
 const ruleTester = new RuleTester({
   parserOptions: {

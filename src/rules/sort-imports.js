@@ -36,8 +36,7 @@ module.exports = {
                 return 0
               })
 
-              const fixes = []
-              importNodes.forEach((importNode, index) => {
+              return importNodes.reduce((fixes, importNode, index) => {
                 const sortedImportNode = sortedImportNodes[index]
                 if (sortedImportNode.source.value !== importNode.source.value) {
                   fixes.push(
@@ -47,9 +46,8 @@ module.exports = {
                     )
                   )
                 }
-              })
-
-              return fixes
+                return fixes
+              }, [])
             },
           })
         }

@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-custom",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
     "test": "mocha tests/**/*.test.js"
