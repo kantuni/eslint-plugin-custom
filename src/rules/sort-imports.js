@@ -2,7 +2,7 @@ module.exports = {
   meta: {
     type: "problem",
     docs: {
-      description: "Enforce that imports are sorted.",
+      description: "Enforces that imports are sorted.",
     },
     fixable: "code",
     messages: {
@@ -29,27 +29,24 @@ module.exports = {
         }
       },
       onCodePathEnd: () => {
-        const lastImportNode = importNodes.at(-1)
-        // Next: https://stackoverflow.com/questions/31973278/iterate-an-array-as-a-pair-current-next-in-javascript
-        // Check if ALL pairs are sorted (use the idea from the callback function of the `importNodes.reduce` below).
-        const sorted = importNodes.every(
-          (importNode) => importNode.source.value <= lastImportNode.source.value
+        const sortedImportNodes = importNodes.toSorted((a, b) => {
+          if (a.source.value < b.source.value) {
+            return -1
+          } else if (a.source.value > b.source.value) {
+            return 1
+          }
+          return 0
+        })
+        const isSorted = importNodes.every(
+          (importNode, index) => importNode === sortedImportNodes[index]
         )
 
-        if (!sorted) {
+        if (!isSorted) {
+          const lastImportNode = importNodes.at(-1)
           context.report({
             node: lastImportNode,
             messageId: "importsAreNotSorted",
             fix(fixer) {
-              const sortedImportNodes = importNodes.toSorted((a, b) => {
-                if (a.source.value < b.source.value) {
-                  return -1
-                } else if (a.source.value > b.source.value) {
-                  return 1
-                }
-                return 0
-              })
-
               return importNodes.reduce((fixes, importNode, index) => {
                 const sortedImportNode = sortedImportNodes[index]
                 if (sortedImportNode.source.value !== importNode.source.value) {
