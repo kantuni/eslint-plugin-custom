@@ -37,6 +37,7 @@ module.exports = {
           }
           return 0
         })
+
         const isSorted = importNodes.every(
           (importNode, index) => importNode === sortedImportNodes[index]
         )
@@ -46,8 +47,8 @@ module.exports = {
           context.report({
             node: lastImportNode,
             messageId: "importsAreNotSorted",
-            fix(fixer) {
-              return importNodes.reduce((fixes, importNode, index) => {
+            fix: (fixer) =>
+              importNodes.reduce((fixes, importNode, index) => {
                 const sortedImportNode = sortedImportNodes[index]
                 if (sortedImportNode.source.value !== importNode.source.value) {
                   fixes.push(
@@ -58,8 +59,7 @@ module.exports = {
                   )
                 }
                 return fixes
-              }, [])
-            },
+              }, []),
           })
         }
       },
