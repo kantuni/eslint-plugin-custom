@@ -1,18 +1,29 @@
 {
   "name": "eslint-plugin-custom",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "mocha tests/**/*.test.js"
+    "test": "mocha --import=tsx/cjs tests/**/*.test.ts",
+    "lint": "tsc",
+    "build": "pnpm run lint && tsup src/index.ts --format=cjs,esm --dts"
   },
   "devDependencies": {
+    "@types/eslint": "^8.56.6",
+    "@types/estree": "^1.0.5",
+    "@types/node": "^20.12.2",
+    "esbuild": "^0.20.2",
     "eslint": "^8.56.0",
-    "eslint-plugin-custom": "link:",
-    "mocha": "^10.2.0"
+    "eslint-plugin-custom": "link:.",
+    "mocha": "^10.2.0",
+    "rimraf": "^5.0.5",
+    "tsup": "^8.0.2",
+    "tsx": "^4.7.1"
   },
   "peerDependencies": {
-    "eslint": "^8.56.0"
+    "typescript": "^5.0.0"
   },
   "author": "Henrikh Kantuni",
-  "license": "ISC"
+  "license": "UNLICENSED"
 }

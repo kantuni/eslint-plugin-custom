@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    // Enable latest features
+    "lib": ["DOM", "ESNext", "ESNext.Array"],
+    "target": "ESNext",
+    "module": "CommonJS",
+    "moduleResolution": "Classic",
+
+    // Best practices
+    "strict": true,
+    "skipLibCheck": true,
+    "noFallthroughCasesInSwitch": true,
+
+    // Some stricter flags (disabled by default)
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noPropertyAccessFromIndexSignature": false,
+
+    "outDir": "dist"
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}
